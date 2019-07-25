@@ -1,7 +1,9 @@
 package br.rs.pannuviamonteiro.appium.cttreinamento.srbarrigahibrido.tests;
 
+import static br.rs.pannuviamonteiro.appium.cttreinamento.core.DriverFactory.getDriver;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Test;
@@ -12,39 +14,59 @@ import br.rs.pannuviamonteiro.appium.cttreinamento.srbarrigahibrido.pages.SeuBar
 
 public class SeuBarrigaHibridoTest extends BaseTest {
 
-	private BasePage basePage;
+	private BaseTest baseTest;
 	private SeuBarrigaHibridoPage seuBarrigaHibridoPage;
 	
 	public SeuBarrigaHibridoTest() {
-		this.basePage = new BasePage(); 
+		this.baseTest = new BaseTest(); 
 		this.seuBarrigaHibridoPage = new SeuBarrigaHibridoPage();
 	}
-
+	
 	@Test
 	public void deveRealizarLogin() throws InterruptedException {
 		
 		//acessar o menu "SeuBarriga Híbrido"
-		this.basePage.clicarNoTextoDoElementoPorXpath("SeuBarriga Híbrido");
+		this.baseTest.clicarNoElementoPorXPathComTexto(("SeuBarriga Híbrido"));
 		Thread.sleep(3000);
-		this.seuBarrigaHibridoPage.entrarNoContexto();
-		this.seuBarrigaHibridoPage.alterarParaContexto();
+		entrarNoContexto();
+		alterarParaContexto();
 		
 		//preencher email
-		this.seuBarrigaHibridoPage.preencherCampoEmail().sendKeys("a@a");
+		this.seuBarrigaHibridoPage.campoEmail().sendKeys("a@a");
 		
 		//preencher senha
-		this.seuBarrigaHibridoPage.preencherCampoSenha().sendKeys("a");;
+		this.seuBarrigaHibridoPage.campoSenha().sendKeys("a");
 		
 		//clicar em ENTRAR
-		this.seuBarrigaHibridoPage.clicarBotaoEntrar().click();
+		this.seuBarrigaHibridoPage.botaoEntrar().click();
 		
 		//validar mensagem 
-		assertEquals("Bem vindo, a!", (this.seuBarrigaHibridoPage.obterMensagem()));
+		assertEquals("Bem vindo, a!", (this.seuBarrigaHibridoPage.campoMensagem()).getText());
 	}
 	
 	@After
 	public void tearDown() {
-		this.seuBarrigaHibridoPage.sairDoContexto();
+		sairDoContexto();
+	}
+	
+//*****************************************************************************************************************************************************************************
+	
+	public void entrarNoContexto() {
+		Set<String> contextHandles = getDriver().getContextHandles();
+
+		// imprimir contextos existentes
+		for (String nomeContexto : contextHandles) {
+			System.out.println(nomeContexto);
+		}
+	}
+
+	public void alterarParaContexto() {
+		Set<String> contextHandles = getDriver().getContextHandles();
+		getDriver().context((String) contextHandles.toArray()[1]);
+	}
+
+	public void sairDoContexto() {
+		getDriver().context((String) getDriver().getContextHandles().toArray()[0]);
 	}
 	
 }

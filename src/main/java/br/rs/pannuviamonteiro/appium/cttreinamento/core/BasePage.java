@@ -13,76 +13,110 @@ import io.appium.java_client.TouchAction;
 
 public class BasePage {
 
-	public void preencherCampo(By by, String texto) {
-		getDriver().findElement(by).sendKeys(texto);
+//	public void preencherCampoPor(By by, String texto) {
+//		getDriver().findElement(by).sendKeys(texto);
+//	}
+
+	// refatorado
+	public MobileElement campoPor(By by) {
+		return getDriver().findElement(by);
 	}
 
 //**********************************************************            CLICAR         ****************************************************************************************
 
-	
-	public void clicar(By by) {
-		getDriver().findElement(by).click();
+//	public void clicar(By by) {
+//	getDriver().findElement(by).click();
+//}
+
+	// refatorado
+	public MobileElement elementoPor(By by) {
+		return getDriver().findElement(by);
 	}
 
-	public void clicarNumaCoordenadaDoElementoComTexto(String texto, int x, int y) {
+//	public void clicarNoTextoDoElementoPorXpath(String textoDoElemento) {
+//	clicar(By.xpath("//*[@text='" + textoDoElemento + "']"));
+//}
+
+	// refatorado
+	public MobileElement elementoPorXPathComTexto(String textoDoElemento) {
+		return getDriver().findElement(By.xpath("//*[@text='" + textoDoElemento + "']"));
+	}
+
+//	public void clicarNumaCoordenadaDoElementoComTexto(String texto, int x, int y) {
+//		MobileElement elemento = getDriver().findElement(By.xpath(("//*[@text='" + texto + "']/..")));
+//		new TouchAction(getDriver()).tap(elemento, x, y).perform();
+//	}
+
+	// refatorado
+	public TouchAction coordenadaDoElementoComTexto(String texto, int x, int y) {
 		MobileElement elemento = getDriver().findElement(By.xpath(("//*[@text='" + texto + "']/..")));
-		new TouchAction(getDriver()).tap(elemento, x, y).perform();
+		return new TouchAction(getDriver()).tap(elemento, x, y);
 	}
 
-	public void clicarNumaCoordenada(int x, int y) {
-		new TouchAction(getDriver()).tap(x, y).perform();
+//	public void clicarNumaCoordenada(int x, int y) {
+//		new TouchAction(getDriver()).tap(x, y).perform();
+//	}
+
+	// refatorado
+	public TouchAction coordenadaDoElemento(int x, int y) {
+		return new TouchAction(getDriver()).tap(x, y);
 	}
 
-	public void clicarNoTextoDoElementoPorXpath(String textoDoElemento) {
-		clicar(By.xpath("//*[@text='" + textoDoElemento + "']"));
+//	public void clicarNoComboComValor(By by, String valor) {
+//		getDriver().findElement(by).click();
+//		getDriver().findElement(By.xpath("//android.widget.CheckedTextView[@text='" + valor + "']")).click();
+//	}
+
+	// refatorado
+	public MobileElement comboPorXPathComValor(By by, String valor) {
+		return getDriver().findElement(By.xpath("//android.widget.CheckedTextView[@text='" + valor + "']"));
 	}
 
-	public void clicarNoCombo(By by, String valor) {
-		getDriver().findElement(by).click();
-		getDriver().findElement(By.xpath("//android.widget.CheckedTextView[@text='" + valor + "']")).click();
-	}
-
-	public void capturarElementoPorXPath(String textoElemento) {
-		getDriver().findElement(By.xpath("//*[@text='" + textoElemento + "']"));
-	}
-
-	public String capturarTexto(By by) {
-		return getDriver().findElement(by).getText();
-	}
-
-	
 //**********************************************************            CAPTURAR         ***************************************************************************************
 
 	
-	public String capturarTituloDoAlerta() {
-		return capturarTexto(By.id("android:id/alertTitle"));
-	}
+//	public void capturarElementoPorXPathComTexto(String textoElemento) {
+//		getDriver().findElement(By.xpath("//*[@text='" + textoElemento + "']"));
+//	}
 
-	public String capturarTipoDeAlerta(String tipoAlerta) {
-		return capturarTexto(By.xpath("//*[@text='" + tipoAlerta + "']"));
-	}
-
-	public String capturarMensagemDoAlerta() {
-		return capturarTexto(By.id("android:id/message"));
-	}
-
+//	public String capturarTexto(By by) {
+//		return getDriver().findElement(by).getText();
+//	}
 	
-//**********************************************************            VALIDAR        ****************************************************************************************
-
-	
-	public boolean validarSeEstaMarcado(By by) {
-		return getDriver().findElement(by).getAttribute("checked").equals("true");
+	// refatorado
+	public MobileElement textoPorLocator(By by) {
+		return getDriver().findElement(by);
 	}
 
-	public boolean validarSeExisteElementoPorXpathComOTexto(String texto) {
-		List<MobileElement> elementos = getDriver().findElements(By.xpath("//*[@text='" + texto + "']"));
-		return elementos.size() > 0;
+//	public String capturarTituloDoAlertaPorID() {
+//		return capturarTexto(By.id("android:id/alertTitle"));
+//	}
+	
+	// refatorado
+	public MobileElement tituloDoAlertaPorID() {
+		return textoPorLocator(By.id("android:id/alertTitle"));
 	}
 
+//	public String capturarTipoDeAlertaPorXpath(String tipoAlerta) {
+//		return capturarTexto(By.xpath("//*[@text='" + tipoAlerta + "']"));
+//	}
 	
+	// refatorado
+	public MobileElement tipoDeAlertaPorXpath(String tipoAlerta) {
+		return textoPorLocator(By.xpath("//*[@text='" + tipoAlerta + "']"));
+	}
+
+//	public String capturarMensagemDoAlertaPorID() {
+//		return capturarTexto(By.id("android:id/message"));
+//	}
+	
+	public MobileElement mensagemDoAlertaPorID() {
+		return textoPorLocator(By.id("android:id/message"));
+	}
+
+
 //**********************************************************       SWIPE GENERICO PELA JANELA        **************************************************************************
 
-	
 	public void realizarSwipeGenericoMedindoPeloTamanhoDaJanela(double pontoInicial, double pontoFinal) {
 		Dimension size = getDriver().manage().window().getSize();
 
@@ -95,10 +129,8 @@ public class BasePage {
 				.moveTo(posicaoXFinal, posicaoY).release().perform();
 	}
 
-	
 //************************************************       SWIPE PELA JANELA COM COORDENADAS X e Y    ***************************************************************************
 
-	
 	public void realizarSwipeRightPelaJanela(double pontoEsquerda, double pontoDireita) {
 		realizarScrollGenericoMedindoPeloTamanhoDaJanela(pontoEsquerda, pontoDireita);
 	}
@@ -107,10 +139,8 @@ public class BasePage {
 		realizarScrollGenericoMedindoPeloTamanhoDaJanela(pontoDireita, pontoEsquerda);
 	}
 
-	
 //**********************************************************     SWIPE GENERICO PELO ELEMENTO     *****************************************************************************
 
-	
 	public void realizarSwipeGenericoMedindoPeloTamanhoDoElemento(MobileElement elemento, double pontoInicial,
 			double pontoFinal) {
 		int posicaoY = elemento.getLocation().y + (elemento.getSize().height / 2);
@@ -122,10 +152,8 @@ public class BasePage {
 				.moveTo(posicaoXFinal, posicaoY).release().perform();
 	}
 
-	
 //**********************************************************    SWIPE PELO ELEMENTO COM COORDENADAS X e Y      ****************************************************************
 
-	
 	public void realizarSwipeRightPeloElemento(MobileElement elemento, double pontoEsquerda, double pontoDireita) {
 		realizarSwipeGenericoMedindoPeloTamanhoDoElemento(elemento, pontoEsquerda, pontoDireita);
 	}
@@ -134,34 +162,32 @@ public class BasePage {
 		realizarSwipeGenericoMedindoPeloTamanhoDoElemento(elemento, pontoDireita, pontoEsquerda);
 	}
 
-	
 //**********************************************************    SWIPE PELO ELEMENTO DE CIMA "/.." COM O TEXTO E COORDENADAS X e Y     ******************************************
 
-	
 	public void realizarSwipeRightPeloElementoDeCimaComTexto(String texto, double pontoEsquerda, double pontoDireita) {
-		realizarSwipeLeftPeloElemento(getDriver().findElement(By.xpath("//*[@text='" + texto + "']/..")), pontoEsquerda, pontoDireita);
+		realizarSwipeLeftPeloElemento(getDriver().findElement(By.xpath("//*[@text='" + texto + "']/..")), pontoEsquerda,
+				pontoDireita);
 	}
 
 	public void realizarSwipeLeftPeloElementoDeCimaComTexto(String texto, double pontoDireita, double pontoEsquerda) {
-		realizarSwipeLeftPeloElemento(getDriver().findElement(By.xpath("//*[@text='" + texto + "']/..")), pontoDireita, pontoEsquerda);
+		realizarSwipeLeftPeloElemento(getDriver().findElement(By.xpath("//*[@text='" + texto + "']/..")), pontoDireita,
+				pontoEsquerda);
 	}
-	
-	
+
 //**********************************************************    SWIPE PELO ELEMENTO COM O TEXTO E COORDENADAS X e Y     ******************************************************
 
-	
-		public void realizarSwipeRightPeloElementoComTexto(String texto, double pontoEsquerda, double pontoDireita) {
-			realizarSwipeLeftPeloElemento(getDriver().findElement(By.xpath("//*[@text='" + texto + "']")), pontoEsquerda, pontoDireita);
-		}
+	public void realizarSwipeRightPeloElementoComTexto(String texto, double pontoEsquerda, double pontoDireita) {
+		realizarSwipeLeftPeloElemento(getDriver().findElement(By.xpath("//*[@text='" + texto + "']")), pontoEsquerda,
+				pontoDireita);
+	}
 
-		public void realizarSwipeLeftPeloElementoComTexto(String texto, double pontoDireita, double pontoEsquerda) {
-			realizarSwipeLeftPeloElemento(getDriver().findElement(By.xpath("//*[@text='" + texto + "']")), pontoDireita, pontoEsquerda);
-		}
-	
+	public void realizarSwipeLeftPeloElementoComTexto(String texto, double pontoDireita, double pontoEsquerda) {
+		realizarSwipeLeftPeloElemento(getDriver().findElement(By.xpath("//*[@text='" + texto + "']")), pontoDireita,
+				pontoEsquerda);
+	}
 
 //**********************************************************       SCROLL GENERICO PELA JANELA          **********************************************************************
 
-		
 	public void realizarScrollGenericoMedindoPeloTamanhoDaJanela(double pontoInicial, double pontoFinal) {
 		Dimension size = getDriver().manage().window().getSize();
 
@@ -174,10 +200,8 @@ public class BasePage {
 				.moveTo(posicaoX, posicaoYFinal).release().perform();
 	}
 
-	
 //**********************************************************         SCROLL PELA JANELA COM COORDENADAS X e Y         *********************************************************
 
-	
 	public void realizarScrollUpPelaJanela(double pontoAbaixo, double pontoAcima) {
 		realizarScrollGenericoMedindoPeloTamanhoDaJanela(pontoAbaixo, pontoAcima);
 	}
@@ -186,11 +210,10 @@ public class BasePage {
 		realizarScrollGenericoMedindoPeloTamanhoDaJanela(pontoAcima, pontoAbaixo);
 	}
 
-	
 //**********************************************************        SCROLL GENERICO PELO ELEMENTO         ********************************************************************
 
-	
-	public void realizarScrollGenericoMedindoPeloTamanhoDoElemento(MobileElement elemento, double pontoInicial,	double pontoFinal) {
+	public void realizarScrollGenericoMedindoPeloTamanhoDoElemento(MobileElement elemento, double pontoInicial,
+			double pontoFinal) {
 		int posicaoX = elemento.getLocation().x + (elemento.getSize().width / 2);
 
 		int posicaoYInicial = (int) (elemento.getSize().height * pontoInicial);
@@ -200,10 +223,8 @@ public class BasePage {
 				.moveTo(posicaoX, posicaoYFinal).release().perform();
 	}
 
-	
 //**********************************************************    SCROLL PELO ELEMENTO COM COORDENADAS X e Y      ****************************************************************
 
-	
 	public void realizarScrollUpPeloElemento(MobileElement elemento, double pontoAbaixo, double pontoAcima) {
 		realizarScrollGenericoMedindoPeloTamanhoDoElemento(elemento, pontoAbaixo, pontoAcima);
 	}
@@ -212,19 +233,16 @@ public class BasePage {
 		realizarScrollGenericoMedindoPeloTamanhoDoElemento(elemento, pontoAcima, pontoAbaixo);
 	}
 
-	
 //**********************************************************    SCROLL PELO ELEMENTO COM O TEXTO E COORDENADAS X e Y     ******************************************************
-	
-	
+
 	public void realizarScrollUpPeloElementoComTexto(String texto, double pontoAbaixo, double pontoAcima) {
-		realizarScrollGenericoMedindoPeloTamanhoDoElemento(getDriver().findElement(By.xpath("//*[@text='" + texto + "']")), pontoAbaixo, pontoAcima);
+		realizarScrollGenericoMedindoPeloTamanhoDoElemento(
+				getDriver().findElement(By.xpath("//*[@text='" + texto + "']")), pontoAbaixo, pontoAcima);
 	}
 
 	public void realizarScrollDownPeloElementoComTexto(String texto, double pontoAcima, double pontoAbaixo) {
-		realizarSwipeLeftPeloElemento(getDriver().findElement(By.xpath("//*[@text='" + texto + "']")), pontoAcima, pontoAbaixo);	
+		realizarSwipeLeftPeloElemento(getDriver().findElement(By.xpath("//*[@text='" + texto + "']")), pontoAcima,
+				pontoAbaixo);
 	}
-	
-	
-	
-	
+
 }
