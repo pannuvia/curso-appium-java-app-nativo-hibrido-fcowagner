@@ -5,12 +5,16 @@ import io.appium.java_client.MobileElement;
 
 public class SeuBarrigaNativoIncluirContaPage extends BasePage {
 
-	public MobileElement campoContas(String contas) {
-		return elementoPorXPathComTexto(contas);
+	public MobileElement campoNomeConta(String nomeConta) {
+		return elementoPorXPathComTexto(nomeConta);
 	}
 	
 	public MobileElement botaoSalvar(String textoBotao) {
 		return elementoPorXPathComTexto(textoBotao);
+	}
+	
+	public MobileElement campoConta(String conta) {
+		return textoPorLocator(conta);
 	}
 	
 	public MobileElement mensagem(String textoMensagem) {

@@ -19,10 +19,10 @@ import io.appium.java_client.MobileElement;
 
 public class BaseTest {
 
-	private BasePage basepage;
+	private BasePage basePage;
 
 	public BaseTest() {
-		this.basepage = new BasePage();
+		this.basePage = new BasePage();
 	}
 
 	@Rule
@@ -56,61 +56,71 @@ public class BaseTest {
 
 	// refatorado
 	public void preencherCampoPorLocatorComTexto(By by, String texto) {
-		this.basepage.campoPor(by).sendKeys(texto);
+		this.basePage.campoPor(by).sendKeys(texto);
 	}
 
 //**********************************************************            CLICAR         ****************************************************************************************
 
 	// refatorado
 	public void clicarNoElementoPor(By by) {
-		this.basepage.elementoPor(by).click();
+		this.basePage.elementoPor(by).click();
 	}
 
 	// refatorado
 	public void clicarNoElementoPorXPathComTexto(String textoDoElemento) {
-		this.basepage.elementoPorXPathComTexto(textoDoElemento).click();
+		this.basePage.elementoPorXPathComTexto(textoDoElemento).click();
 	}
 
 	// refatorado
 	public void clicarNumaCoordenadaDoElementoComTexto(String texto, int x, int y) {
-		this.basepage.coordenadaDoElementoComTexto(texto, x, y).perform();
+		this.basePage.cliqueNaCoordenadaDoElementoComTexto(texto, x, y).perform();
 	}
 
 	// refatorado
 	public void clicarNumaCoordenadaDoElemento(int x, int y) {
-		this.basepage.coordenadaDoElemento(x, y);
+		this.basePage.cliqueNaCoordenadaDoElemento(x, y);
 	}
 
 	// refatorado
 	public void clicarNoComboPorXPathComValor(By by, String valor) {
-		this.basepage.comboPorXPathComValor(by, valor).click();
+		this.basePage.comboPorXPathComValor(by, valor).click();
+	}
+	
+	// refatorado
+	public void clicarLongoNoElementoPorLocator(By by) {
+		this.basePage.cliqueLongoNoElementoPorLocator(by).perform();
+	}
+	
+	// refatorado
+	public void clicarLongoNoElementoPorXPathComTexto(String texto) {
+		this.basePage.cliqueLongoNoElementoPorXPathComTexto(texto).perform();
 	}
 
 //**********************************************************            CAPTURAR         ***************************************************************************************
 
 	// refatorado
 	public String capturarElementoPorXPathComTexto(String textoDoElemento) {
-		return this.basepage.elementoPorXPathComTexto(textoDoElemento).getText();
+		return this.basePage.elementoPorXPathComTexto(textoDoElemento).getText();
 	}
 
 	// refatorado
 	public String capturarPorTexto(By by) {
-		return this.basepage.textoPorLocator(by).getText();
+		return this.basePage.textoPorLocator(by).getText();
 	}
 
 	// refatorado
 	public String capturarTituloDoAlertaPorID() {
-		return this.basepage.tituloDoAlertaPorID().getText();
+		return this.basePage.tituloDoAlertaPorID().getText();
 	}
 
 	// refatorado
 	public String capturarTipoDeAlertaPorXpath(String tipoAlerta) {
-		return this.basepage.tipoDeAlertaPorXpath(tipoAlerta).getText();
+		return this.basePage.tipoDeAlertaPorXpath(tipoAlerta).getText();
 	}
 
 	// refatorado
 	public String capturarMensagemDoAlertaPorID() {
-		return this.basepage.mensagemDoAlertaPorID().getText();
+		return this.basePage.mensagemDoAlertaPorID().getText();
 	}
 
 //**********************************************************            VALIDAR        ****************************************************************************************

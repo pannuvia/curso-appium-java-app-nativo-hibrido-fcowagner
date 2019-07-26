@@ -12,10 +12,6 @@ import io.appium.java_client.TouchAction;
 
 public class BasePage {
 
-//	public void preencherCampoPor(By by, String texto) {
-//		getDriver().findElement(by).sendKeys(texto);
-//	}
-
 	// refatorado
 	public MobileElement campoPor(By by) {
 		return getDriver().findElement(by);
@@ -23,91 +19,56 @@ public class BasePage {
 
 //**********************************************************            CLICAR         ****************************************************************************************
 
-//	public void clicar(By by) {
-//	getDriver().findElement(by).click();
-//}
-
 	// refatorado
 	public MobileElement elementoPor(By by) {
 		return getDriver().findElement(by);
 	}
-
-//	public void clicarNoTextoDoElementoPorXpath(String textoDoElemento) {
-//	clicar(By.xpath("//*[@text='" + textoDoElemento + "']"));
-//}
 
 	// refatorado
 	public MobileElement elementoPorXPathComTexto(String textoDoElemento) {
 		return getDriver().findElement(By.xpath("//*[@text='" + textoDoElemento + "']"));
 	}
 
-//	public void clicarNumaCoordenadaDoElementoComTexto(String texto, int x, int y) {
-//		MobileElement elemento = getDriver().findElement(By.xpath(("//*[@text='" + texto + "']/..")));
-//		new TouchAction(getDriver()).tap(elemento, x, y).perform();
-//	}
-
 	// refatorado
-	public TouchAction coordenadaDoElementoComTexto(String texto, int x, int y) {
+	public TouchAction cliqueNaCoordenadaDoElementoComTexto(String texto, int x, int y) {
 		MobileElement elemento = getDriver().findElement(By.xpath(("//*[@text='" + texto + "']/..")));
 		return new TouchAction(getDriver()).tap(elemento, x, y);
 	}
 
-//	public void clicarNumaCoordenada(int x, int y) {
-//		new TouchAction(getDriver()).tap(x, y).perform();
-//	}
-
 	// refatorado
-	public TouchAction coordenadaDoElemento(int x, int y) {
+	public TouchAction cliqueNaCoordenadaDoElemento(int x, int y) {
 		return new TouchAction(getDriver()).tap(x, y);
 	}
-
-//	public void clicarNoComboComValor(By by, String valor) {
-//		getDriver().findElement(by).click();
-//		getDriver().findElement(By.xpath("//android.widget.CheckedTextView[@text='" + valor + "']")).click();
-//	}
 
 	// refatorado
 	public MobileElement comboPorXPathComValor(By by, String valor) {
 		return getDriver().findElement(By.xpath("//android.widget.CheckedTextView[@text='" + valor + "']"));
 	}
+	
+	public TouchAction cliqueLongoNoElementoPorLocator(By by) {
+		return new TouchAction(getDriver()).longPress(getDriver().findElement(by));
+	}
+	
+	public TouchAction cliqueLongoNoElementoPorXPathComTexto(String texto) {
+		return new TouchAction(getDriver()).longPress(getDriver().findElement(By.xpath(("//*[@text='" + texto + "']"))));
+	}
 
 //**********************************************************            CAPTURAR         ***************************************************************************************
 
-	
-//	public void capturarElementoPorXPathComTexto(String textoElemento) {
-//		getDriver().findElement(By.xpath("//*[@text='" + textoElemento + "']"));
-//	}
-
-//	public String capturarTexto(By by) {
-//		return getDriver().findElement(by).getText();
-//	}
-	
 	// refatorado
 	public MobileElement textoPorLocator(By by) {
 		return getDriver().findElement(by);
 	}
 
-//	public String capturarTituloDoAlertaPorID() {
-//		return capturarTexto(By.id("android:id/alertTitle"));
-//	}
-	
 	// refatorado
 	public MobileElement tituloDoAlertaPorID() {
 		return textoPorLocator(By.id("android:id/alertTitle"));
 	}
 
-//	public String capturarTipoDeAlertaPorXpath(String tipoAlerta) {
-//		return capturarTexto(By.xpath("//*[@text='" + tipoAlerta + "']"));
-//	}
-	
 	// refatorado
 	public MobileElement tipoDeAlertaPorXpath(String tipoAlerta) {
 		return textoPorLocator(By.xpath("//*[@text='" + tipoAlerta + "']"));
 	}
-
-//	public String capturarMensagemDoAlertaPorID() {
-//		return capturarTexto(By.id("android:id/message"));
-//	}
 	
 	public MobileElement mensagemDoAlertaPorID() {
 		return textoPorLocator(By.id("android:id/message"));
