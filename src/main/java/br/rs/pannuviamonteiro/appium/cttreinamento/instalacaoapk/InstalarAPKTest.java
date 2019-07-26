@@ -20,7 +20,7 @@ public class InstalarAPKTest {
 		desiredCapabilities.setCapability("platformName", "Android");
 		desiredCapabilities.setCapability("deviceName", "emulator-5554");
 		desiredCapabilities.setCapability("automationName", "UiAutomator2");
-		desiredCapabilities.setCapability(MobileCapabilityType.APP, "D:\\DBSERVER\\BACKUP PROJETOS\\eclipse-workspace\\curso-appium-com-page-object-java-fcowagner\\src\\main\\resources\\CTAppium-1-1.apk");
+		desiredCapabilities.setCapability(MobileCapabilityType.APP, "D:\\DBSERVER\\BACKUP PROJETOS\\eclipse-workspace\\curso-appium-com-page-object-java-fcowagner\\src\\main\\resources\\CTAppium-1-2.apk");
 		desiredCapabilities.setCapability("noReset", "true");
 
 		driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), desiredCapabilities);

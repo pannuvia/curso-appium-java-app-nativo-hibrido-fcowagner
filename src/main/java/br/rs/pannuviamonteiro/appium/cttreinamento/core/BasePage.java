@@ -3,7 +3,6 @@ package br.rs.pannuviamonteiro.appium.cttreinamento.core;
 import static br.rs.pannuviamonteiro.appium.cttreinamento.core.DriverFactory.getDriver;
 
 import java.time.Duration;
-import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
